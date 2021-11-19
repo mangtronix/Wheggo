@@ -6,12 +6,9 @@ class Wheggo:
         self.motors_enabled = False
 
     def update_motors(self):
-        print(self.throttles)
-        print(self.motors_enabled)
         if self.motors_enabled:
             for i in range(len(self.throttles)):
                 self.motors[i].throttle = self.throttles[i]
-                print(self.motors[i].throttle)
         else:
             for i in range(len(self.throttles)):
                 self.motors[i].throttle = 0
