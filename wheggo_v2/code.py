@@ -56,7 +56,8 @@ def parse_osc_packet(packet_data, packet_size):
     route = str(packet_data[:packet_data.index(b'\x00')],'ascii')
 
     comma_index = packet_data.index(',')
-    msg_type = str(packet_data[comma_index+1:comma_index+2],'ascii')
+    null_index = packet_data[comma_index:].index(b'\x00')
+    msg_type = str(packet_data[comma_index+1:comma_index+null_index],'ascii')
     
     value = None
 
@@ -70,6 +71,8 @@ def parse_osc_packet(packet_data, packet_size):
         # A sequence of non-null ASCII characters followed by a null
         value = str(packet_data[comma_index + 4:], 'ascii')
         value = value.split('\0', 1)[0] # Take up to null
+    elif msg_type == 'ff':
+        value = struct.unpack_from('>ff', packet_data, comma_index + 4)
         
     else:
         raise ValueError("msg_type is {}, not implemented".format(msg_type))
@@ -99,8 +102,8 @@ with pool.socket(pool.AF_INET, pool.SOCK_DGRAM) as s:
             # print("Got error: " + str(e))
             continue
             
-        # print("Received packet")
-        # print('  ' + str(packet[:packet_size]))
+        #print("Received packet")
+        #print('  ' + str(packet[:packet_size]))
 
         got_message = False
         try:
