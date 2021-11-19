@@ -1,0 +1,3 @@
+
+ssid = 'mtx'
+password = 'mangtronix'
