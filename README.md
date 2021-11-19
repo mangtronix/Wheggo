@@ -1,2 +1,4 @@
 # Wheggo
-Wheg robot
+Dune-climbing wheg robot
+
+https://outside.nyuadim.com/
