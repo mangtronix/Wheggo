@@ -25,19 +25,19 @@ class Wheggo:
 
 
     def handle_message(self, route, msg_type, value):
-        if route == '/1/enable':
+        if route == '/w/enable':
             if value > 0:
                 self.enable_motors()
             else:
                 self.disable_motors()
 
-        if route == '/1/frontleft':
+        if route == '/w/frontleft':
             self.throttles[0] = value
-        if route == '/1/frontright':
+        if route == '/w/frontright':
             self.throttles[1] = value
-        if route == '/1/rearleft':
+        if route == '/w/rearleft':
             self.throttles[2] = value
-        if route == '/1/rearright':
+        if route == '/w/rearright':
             self.throttles[3] = value
 
         self.update_motors()
